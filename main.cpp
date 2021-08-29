@@ -11,7 +11,7 @@
 using namespace std;
 
 int main(int argc, char const *argv[]){
-	Gamepad_list gamepad;
+	Gamepad gamepad;
 	if(argc > 1){
 		cout << argv[1] << endl;
 		gamepad = get_gamepad_by_path(argv[1]);

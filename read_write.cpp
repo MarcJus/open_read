@@ -6,7 +6,6 @@
 #include <linux/input.h>
 #include <sys/stat.h>
 
-#include "event.hpp"
 #include "read_write.hpp"
 
 using namespace std;
@@ -85,7 +84,7 @@ vgamepad_list get_gamepads(){
 		int fd = open(path.str().c_str(), O_RDONLY);
 		char name[1024];
 		ioctl(fd, JSIOCGNAME(sizeof(name)), name);
-		Gamepad_list gamepad = {
+		Gamepad gamepad = {
 			path.str(), string(name)
 		};
 		list.push_back(gamepad);
@@ -93,7 +92,7 @@ vgamepad_list get_gamepads(){
 	return list;
 }
 
-Gamepad_list get_gamepad_by_path(string path){
+Gamepad get_gamepad_by_path(string path){
 	
 	struct stat buffer;
 	if(stat(path.c_str(), &buffer) == 0){
@@ -101,7 +100,7 @@ Gamepad_list get_gamepad_by_path(string path){
 		if(fd < 0) return {"", ""};
 		char name[1024];
 		ioctl(fd, JSIOCGNAME(sizeof(1024)), name);
-		Gamepad_list gamepad = {path, string(name)};
+		Gamepad gamepad = {path, string(name)};
 		close(fd);
 		return gamepad;
 	}
