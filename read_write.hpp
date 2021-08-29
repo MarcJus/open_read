@@ -53,6 +53,7 @@ void read_keyboard();
  * @return Instance de Gamepad, vide si la manette n'a pas été trouvée
  */ 
 Gamepad get_gamepad_by_path(std::string path);
+
 /**
  * Récupère la liste des manettes
  * @return Vecteur de Gamepad 

@@ -26,7 +26,7 @@ void read_gamepad(string path){
 		int size = read(fd, &event, sizeof(event));
 		
 		if(size < 0){
-			cerr << "Erreur read" << endl;
+			cerr << "Erreur : impossible de lire le fichier. La manette est peut etre débranchée" << endl;
 			exit(1);
 		}
 		cout << "Manette " << name << endl;
@@ -95,18 +95,16 @@ vgamepad_list get_gamepads(){
 Gamepad get_gamepad_by_path(string path){
 	
 	struct stat buffer;
+	Gamepad gamepad;
 	if(stat(path.c_str(), &buffer) == 0){
 		int fd = open(path.c_str(), O_RDONLY);
 		if(fd < 0) return {"", ""};
 		char name[1024];
 		ioctl(fd, JSIOCGNAME(sizeof(1024)), name);
-		Gamepad gamepad = {path, string(name)};
+		gamepad = {path, string(name)};
 		close(fd);
-		return gamepad;
 	}
-	return {
-		"", ""
-	};
+	return gamepad;
 }
 
 void read_keyboard(){

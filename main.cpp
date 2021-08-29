@@ -5,7 +5,6 @@
 #include <linux/input.h>
 #include <limits>
 
-#include "event.hpp"
 #include "read_write.hpp"
 
 using namespace std;
@@ -13,8 +12,10 @@ using namespace std;
 int main(int argc, char const *argv[]){
 	Gamepad gamepad;
 	if(argc > 1){
-		cout << argv[1] << endl;
 		gamepad = get_gamepad_by_path(argv[1]);
+		if(gamepad.path.empty()){
+			cerr << "Manette introuvable" << endl;
+		}
 	} else {
 		vgamepad_list list = get_gamepads();
 		if(list.empty()){
