@@ -9,6 +9,8 @@
 
 using namespace std;
 
+char caractere, lettre;
+
 int main(int argc, char const *argv[]){
 	Gamepad gamepad;
 	if(argc > 1){
@@ -44,7 +46,8 @@ int main(int argc, char const *argv[]){
 			boucle = false;
 		} while(boucle);
 	}
-	if(gamepad.path == "")exit(1);
+	if(gamepad.path == "")
+		exit(EXIT_FAILURE);
 	read_gamepad(gamepad.path);
 	
 }

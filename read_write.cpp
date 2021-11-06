@@ -41,11 +41,12 @@ void read_gamepad(string path){
 	close(fd);
 }
 
+
 void read_gamepad(){
 	read_gamepad("/dev/input/js0");
 }
 
-void write_file(string path){
+void write_file(){
 	int fd = open("write", O_RDWR);
 	if(fd < 0){
 		cerr << "Erreur fd" << endl;
@@ -59,14 +60,14 @@ void write_file(string path){
 	};
 	int size_write = write(fd, &event, sizeof(event));
 	if(size_write < 0){
-		cerr << "Erreur read" << endl;
+		cerr << "Erreur write" << endl;
 		exit(1);
 	}
 	cout << "Octets ecrits : " << size_write << endl;
 
-	Event autre;
-	read(fd, &autre, sizeof(autre));
-	cout << autre.time << endl;
+	// Event autre;
+	// read(fd, &autre, sizeof(autre));
+	// cout << autre.time << endl;
 	
 	close(fd);
 }
@@ -130,4 +131,16 @@ void read_keyboard(){
 				break;
 		}
 	}
+}
+
+bool read_toread(Test *test){
+	int fd = open("to_read", O_RDONLY);
+	if(fd < 0){
+		return false;
+	}
+	int size = read(fd, test, sizeof(*test));
+	cout << "Size : " << size << endl;
+	cout << "int : " << test->nombre << endl
+		 << "char : " << test->character << endl;
+	return true;
 }

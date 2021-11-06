@@ -7,7 +7,7 @@
 /**
  * Informations sur la manette
  */
-typedef struct Gamepad{
+struct Gamepad{
 	/**
 	 * Chemin de la manette
 	 */
@@ -17,18 +17,28 @@ typedef struct Gamepad{
 	 * Nom de la manette
 	 */
 	std::string name;
-} Gamepad;
+};
+
+struct Test{
+	int nombre;
+	
+	unsigned char character;
+};
 
 /**
  * Vecteur de Gamepad
  */
 typedef std::vector<Gamepad> vgamepad_list;
 
+/**
+ * Evenement de joystick
+ * @see js_event
+ */
 typedef js_event Event;
 
 /**
- * Lit les entrées de la manette en /dev/input/js0
- */ 
+ * @brief Par defaut, on lit la manette en /dev/input/js0:
+ */
 void read_gamepad();
 
 /**
@@ -40,7 +50,7 @@ void read_gamepad(std::string path);
 /**
  * @deprecated
  */ 
-void write_file(std::string path);
+void write_file();
 
 /**
  * Lit les entrées du clavier
@@ -59,5 +69,7 @@ Gamepad get_gamepad_by_path(std::string path);
  * @return Vecteur de Gamepad 
  */
 vgamepad_list get_gamepads();
+
+bool read_toread(Test *test);
 
 #endif
